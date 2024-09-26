@@ -5,6 +5,9 @@ import { EmpleoyesModule } from './empleoyes/empleoyes.module';
 import { ProductsModule } from './products/products.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProvidersModule } from './providers/providers.module';
+import { ManagerModule } from './manager/manager.module';
+import { LocationModule } from './location/location.module';
+import { RegionModule } from './region/region.module';
 
 
 @Module({
@@ -20,7 +23,7 @@ import { ProvidersModule } from './providers/providers.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    EmpleoyesModule, ProductsModule, ProvidersModule],
+    EmpleoyesModule, ProductsModule, ProvidersModule, ManagerModule, LocationModule, RegionModule],
   
   controllers: [AppController],
   providers: [AppService],
