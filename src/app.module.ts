@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { EmpleoyesModule } from './empleoyes/empleoyes.module';
 import { ProductsModule } from './products/products.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProvidersModule } from './providers/providers.module';
 
 
 @Module({
@@ -14,12 +15,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: 5432,
       username: 'postgres',
       password: 'Lacontraseña',
-      database: process.env.name,
+      database: 'ocsoDB',
       entities:[],
       autoLoadEntities: true,
       synchronize: true,
     }),
-    EmpleoyesModule, ProductsModule],
+    EmpleoyesModule, ProductsModule, ProvidersModule],
   
   controllers: [AppController],
   providers: [AppService],

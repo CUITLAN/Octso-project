@@ -8,7 +8,7 @@ services:
       - '5432:5432'
     environment:
       POSTGRES_PASSWORD: 'Lacontraseña'
-      POSTGRES_DB: 'Enefecto'
+      POSTGRES_DB: 'ocsoDB'
     container_name: ocso_db
     volumes:
     - ./postgres:/var/lib/postgresql/data
