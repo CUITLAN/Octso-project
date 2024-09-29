@@ -5,11 +5,13 @@ import { UpdateProviderDto } from './dto/update-provider.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { UserData } from 'src/auth/decorators/user.decorator';
 import { Auth } from 'src/auth/entities/user.entity';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 @UseGuards(AuthGuard)
+
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) {}
-
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createProviderDto: CreateProviderDto) {
     return this.providersService.create(createProviderDto);
@@ -22,7 +24,8 @@ export class ProvidersController {
     return provider;
 
   }
-
+  @Roles(["Admin"])
+  @UseGuards(AuthGuard)
   @Get()
   findAll(@UserData() user: Auth) {
     if (user.userRoles.includes("Empleoyee")) throw new UnauthorizedException("No estas autorizado")
