@@ -7,7 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { JWT_KEY, EXPIRES_IN } from './constants/jwt.contants';
 @Module({
-  imports: [TypeOrmModule.forFeature([Auth]),
+  imports: [
+    TypeOrmModule.forFeature([Auth]),
   JwtModule.register({
     secret: JWT_KEY,
     signOptions:{

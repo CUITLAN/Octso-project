@@ -8,4 +8,9 @@ export class Auth {
    userEmail:string;
     @Column('text')
     userPassword: string;
+    @Column('simple-array',{
+        default: "Employee"
+    })
+    userRoles: string[];
+
 }

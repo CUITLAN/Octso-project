@@ -31,8 +31,9 @@ export class AuthService {
     const match = await bcrypt.compare(loginUserDto.userPassword, user.userPassword)
     if (!match) return new UnauthorizedException("NO estas autorizado");
     const payload = {
-      user: user.userEmail,
-      password: user.userPassword,
+      userEmail: user.userEmail,
+      userPassword: user.userPassword,
+      userRoles: user.userRoles
     };
     const token = this.JwtService.sign(payload);
     return token;
