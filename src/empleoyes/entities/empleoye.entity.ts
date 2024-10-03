@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "src/location/entities/location.entity";
+import { Auth } from "src/auth/entities/user.entity";
 
 @Entity()
 export class Empleoye {
@@ -24,4 +25,9 @@ export class Empleoye {
         name: "LocationId"
     })
     location: Location;
+    @OneToOne(()=> Auth)
+    @JoinColumn({
+        name: "userId"
+    })
+    user: Auth
 }
