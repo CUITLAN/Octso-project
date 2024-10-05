@@ -22,6 +22,13 @@ export class EmpleoyesService {
     this.empleoyeRepository.find();
   }
 
+  findByLocation(id: number){
+    return this.empleoyeRepository.findBy({
+      location:{
+        locationId: id
+      }
+    })
+  }
   findOne(id: string) {
    const empleoye = this.empleoyeRepository.findOneBy({
     employeeId: id

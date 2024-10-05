@@ -5,6 +5,8 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { AuthUser } from 'src/auth/decorators/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constats';
 import { Auth } from '../auth/entities/user.entity';
+import { ApiAuth } from 'src/auth/decorators/api.decorator';
+@ApiAuth()
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

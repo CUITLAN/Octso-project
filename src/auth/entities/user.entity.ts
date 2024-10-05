@@ -16,12 +16,8 @@ export class Auth {
         default: "Employee"
     })
     userRoles: string[];
-    @OneToOne(() => Manager,{
-        eager: true
-    })
+    @OneToOne(() => Manager)
     manager: Manager;
-    @OneToOne(()=> Empleoye,{
-        eager: true
-    })
+    @OneToOne(()=> Empleoye)
     empleoye: Empleoye;
 }

@@ -8,6 +8,8 @@ import { Auth } from 'src/auth/entities/user.entity';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthUser } from 'src/auth/decorators/auth.decorator';
 import {ROLES} from "src/auth/constants/roles.constats"
+import { ApiAuth } from 'src/auth/decorators/api.decorator';
+@ApiAuth()
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) {}
