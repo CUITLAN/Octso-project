@@ -24,12 +24,3 @@ export class CreateEmpleoyeDto extends Empleoye{
     @ApiProperty()
     location:Location;
 }
-
-export class LocationEmployeeDTO extends Location{
-    @ApiProperty()
-    locationId: number;
-    @ApiPropertyOptional()
-    locationLat: number[];
-    @ApiPropertyOptional()
-    locationAddres: string;
-}

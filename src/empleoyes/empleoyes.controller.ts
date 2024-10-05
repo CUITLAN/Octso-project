@@ -5,10 +5,11 @@ import { UpdateEmpleoyeDto } from './dto/update-empleoye.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthUser } from 'src/auth/decorators/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constats'; 
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Empleoye } from './entities/empleoye.entity';
 import { ApiAuth } from 'src/auth/decorators/api.decorator';
 @ApiAuth()
+@ApiTags('Empleoyees')
 @Controller('empleoyees')
 export class EmpleoyesController {
   constructor(private readonly empleoyesService: EmpleoyesService) {}

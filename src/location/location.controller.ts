@@ -5,7 +5,9 @@ import { UpdateLocationDto } from './dto/update-location.dto';
 import { AuthUser } from 'src/auth/decorators/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constats'; 
 import { ApiAuth } from 'src/auth/decorators/api.decorator';
+import { ApiTags } from '@nestjs/swagger';
 @ApiAuth()
+@ApiTags('Locations')
 @Controller('location')
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
