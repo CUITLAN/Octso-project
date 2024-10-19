@@ -28,14 +28,16 @@ export class AuthService {
         userEmail: loginUserDto.userEmail
       },
     })
+    if(!user) throw new UnauthorizedException("No estas autorizadosss")
     const match = await bcrypt.compare(loginUserDto.userPassword, user.userPassword)
-    if (!match) return new UnauthorizedException("NO estas autorizado");
+    if (!match) return new UnauthorizedException("No estas autorizado");
     const payload = {
       userEmail: user.userEmail,
       userPassword: user.userPassword,
       userRoles: user.userRoles
     };
     const token = this.JwtService.sign(payload);
+    console.log(token)
     return token;
 
   }
