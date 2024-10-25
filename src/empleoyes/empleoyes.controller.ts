@@ -25,7 +25,7 @@ export class EmpleoyesController {
 
   })
   
-  @AuthUser(ROLES.MANAGER)
+  // @AuthUser(ROLES.MANAGER)
   @Post()
   create(@Body() createEmpleoyeDto: CreateEmpleoyeDto) {
     return this.empleoyesService.create(createEmpleoyeDto);
@@ -43,10 +43,10 @@ export class EmpleoyesController {
     return this.empleoyesService.findOne(id);
   }
 
-  @AuthUser(ROLES.MANAGER)
+  // @AuthUser(ROLES.MANAGER, ROLES.ADMIN)
   @Get('/location/:id')
-  findAllLocation(@Param('id')id: string){
-    return this.empleoyesService.findByLocation(+id)
+  async findAllLocation(@Param('id')id: string){
+    return await this.empleoyesService.findByLocation(+id)
   }
 
   @AuthUser(ROLES.EMPLEOYEE)

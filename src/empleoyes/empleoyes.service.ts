@@ -22,12 +22,13 @@ export class EmpleoyesService {
     this.empleoyeRepository.find();
   }
 
-  findByLocation(id: number){
-    return this.empleoyeRepository.findBy({
+  async findByLocation(id: number){
+    const empleoyeLid = await this.empleoyeRepository.findBy({
       location:{
         locationId: id
       }
     })
+    return empleoyeLid;
   }
   findOne(id: string) {
    const empleoye = this.empleoyeRepository.findOneBy({
