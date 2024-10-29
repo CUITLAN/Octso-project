@@ -38,11 +38,12 @@ export class ProductsService {
 
 
   findByProvider(id:string){
-    this.productRepository.findBy({
+    const find = this.productRepository.findBy({
       provider: {
         providerId: id,
       }
     })
+    return find;
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {

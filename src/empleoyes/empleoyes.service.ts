@@ -19,7 +19,8 @@ export class EmpleoyesService {
   }
 
   findAll() {
-    this.empleoyeRepository.find();
+    const empleote =this.empleoyeRepository.find();
+    return empleote;
   }
 
   async findByLocation(id: number){
