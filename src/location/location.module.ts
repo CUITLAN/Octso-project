@@ -3,11 +3,11 @@ import { LocationService } from './location.service';
 import { LocationController } from './location.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Location } from './entities/location.entity';
-import { ManagerController } from 'src/manager/manager.controller';
 import { Manager } from 'src/manager/entities/manager.entity';
+import { ManagerModule } from 'src/manager/manager.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Location, Manager]), ManagerController],
+  imports:[TypeOrmModule.forFeature([Location, Manager]), ManagerModule],
   controllers: [LocationController],
   providers: [LocationService],
 })
