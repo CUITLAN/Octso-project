@@ -16,7 +16,9 @@ export class ManagerService {
   }
 
   findAll() {
-    return this.managerRepository.find();
+    return this.managerRepository.find({relations:{
+      location: true,
+    }});
   }
 
   findOne(id: string) {
