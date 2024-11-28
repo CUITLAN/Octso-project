@@ -8,11 +8,12 @@ import { ROLES } from 'src/auth/constants/roles.constats';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Empleoye } from './entities/empleoye.entity';
 import { ApiAuth } from 'src/auth/decorators/api.decorator';
+import { AwsService } from '../aws/aws.service';
 @ApiAuth()
 @ApiTags('Empleoyees')
 @Controller('empleoyees')
 export class EmpleoyesController {
-  constructor(private readonly empleoyesService: EmpleoyesService) {}
+  constructor(private readonly empleoyesService: EmpleoyesService, private readonly AwsService: AwsService) {}
   @ApiResponse({
     status:201,
     example:{
@@ -60,12 +61,12 @@ export class EmpleoyesController {
     return this.empleoyesService.remove(id);
   }
   @AuthUser(ROLES.MANAGER, ROLES.EMPLEOYEE)
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file',{
-    dest:"./src/employees/employees-photos"
-  }))
-  uploadPhoto(@UploadedFile() file: Express.Multer.File) {
-    console.log(file); 
-    return { message: 'File uploaded successfully', file };
+  @Post('/:id/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadPhoto(@Param('id') id: string,@UploadedFile() file: Express.Multer.File) {
+    const response =  await this.AwsService.uploadFile(file);
+    return this.empleoyesService.update(id, {
+      EmpleoyephotoUrl: response
+    })
   }
 }

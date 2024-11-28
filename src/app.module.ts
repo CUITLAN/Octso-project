@@ -8,6 +8,7 @@ import { ManagerModule } from './manager/manager.module';
 import { LocationModule } from './location/location.module';
 import { RegionModule } from './region/region.module';
 import { AuthModule } from './auth/auth.module';
+import { AwsModule } from './aws/aws.module';
 
 
 @Module({
@@ -23,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    EmpleoyesModule, ProductsModule, ProvidersModule, ManagerModule, LocationModule, RegionModule, AuthModule],
+    EmpleoyesModule, ProductsModule, ProvidersModule, ManagerModule, LocationModule, RegionModule, AuthModule, AwsModule],
   
   controllers: [],
   providers: [],
