@@ -29,13 +29,15 @@ export class ProductsService {
   }
 
   findOne(id: string) {
-    const product =  this.productRepository.findOneBy({
-      productId:id,
-    })
-    if(!product) throw new NotFoundException()
+    const product = this.productRepository.findOne({
+      where: { productId: id },
+      relations: ['provider'],
+    });
+  
+    if (!product) throw new NotFoundException();
     return product;
   }
-
+  
 
   findByProvider(id:string){
     const find = this.productRepository.findBy({
@@ -51,9 +53,8 @@ export class ProductsService {
       productId:id,
       ...updateProductDto
     })
-    if (!productToUpdate) throw new NotFoundException();
-    this.productRepository.save(productToUpdate)
-    return productToUpdate;
+    console.log(productToUpdate)
+    return this.productRepository.save(productToUpdate);
   }
 
   async remove(id: string) {

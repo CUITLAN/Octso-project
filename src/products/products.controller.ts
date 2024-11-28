@@ -36,6 +36,7 @@ export class ProductsController {
   @AuthUser(ROLES.EMPLEOYEE, ROLES.MANAGER)
   @Patch(':id')
   update(@Param('id', new ParseUUIDPipe({version: '4'})) id: string, @Body() updateProductDto: UpdateProductDto) {
+    console.log("Hola almenos hasta aqui se recibio")
     return this.productsService.update(id, updateProductDto);
   }
 

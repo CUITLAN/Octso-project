@@ -15,6 +15,7 @@ export class CreateManagerDto extends Manager{
     @MaxLength(100)
     managerEmail: string;
     @IsOptional()
+    @IsNumber()
     @IsObject()
     location : Location;
 

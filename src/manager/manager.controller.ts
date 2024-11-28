@@ -29,6 +29,7 @@ export class ManagerController {
   @AuthUser(ROLES.ADMIN)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateManagerDto: UpdateManagerDto) {
+    console.log("EN el controller si hay de managerpaso")
     return this.managerService.update(id, updateManagerDto);
   }
   @AuthUser(ROLES.ADMIN)
