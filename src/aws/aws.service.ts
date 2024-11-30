@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as Aws from "@aws-sdk/client-s3"
-import { response } from 'express';
 
 @Injectable()
 export class AwsService {
 
     private s3 = new Aws.S3Client({
-        region:  " us-east-1",
+        region:  "us-east-1",
         credentials:{
             accessKeyId: process.env.accessKeyBucket,
             secretAccessKey: process.env.secretKeyBucket,
-
         }
     })
 

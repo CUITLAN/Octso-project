@@ -19,8 +19,11 @@ export class EmpleoyesService {
   }
 
   findAll() {
-    const empleote =this.empleoyeRepository.find();
-    return empleote;
+    return this.empleoyeRepository.find({
+      relations:{
+        location: true
+      }
+    })
   }
 
   async findByLocation(id: number){
@@ -32,8 +35,13 @@ export class EmpleoyesService {
     return empleoyeLid;
   }
   findOne(id: string) {
-   const empleoye = this.empleoyeRepository.findOneBy({
-    employeeId: id
+   const empleoye = this.empleoyeRepository.findOne({
+    where:{
+      employeeId: id
+    },
+    relations:{
+      location: true,
+    }
    })
    return empleoye
   }

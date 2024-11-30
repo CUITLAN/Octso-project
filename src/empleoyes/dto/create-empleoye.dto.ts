@@ -18,9 +18,13 @@ export class CreateEmpleoyeDto extends Empleoye{
     @IsString()
     @IsEmail()
     @ApiProperty()
-    Empleoyeemai: string;
+    Empleoyeemail: string;
     @IsOptional()
-    @IsObject()
+    @IsString()
     @ApiProperty()
-    location:Location;
+    location: Location | string;
+    @ApiPropertyOptional()
+    @IsOptional()
+    EmpleoyephotoUrl: string;
+
 }

@@ -28,10 +28,10 @@ export class Empleoye {
     @JoinColumn({
         name: "LocationId"
     })
-    location: Location;
+    location: Location | string;
     @OneToOne(()=> Auth)
     @JoinColumn({
         name: "userId"
     })
-    user: Auth
+    user: Auth;
 }

@@ -9,10 +9,10 @@ import { LocationModule } from './location/location.module';
 import { RegionModule } from './region/region.module';
 import { AuthModule } from './auth/auth.module';
 import { AwsModule } from './aws/aws.module';
-
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

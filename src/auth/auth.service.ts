@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -8,20 +8,48 @@ import * as bcrypt from "bcrypt"
 import  * as jwt  from 'jsonwebtoken';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './dto/login-user.dto';
-
+import { Empleoye } from 'src/empleoyes/entities/empleoye.entity';
+import { Manager } from 'src/manager/entities/manager.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(Auth)
-    private authRepository: Repository<Auth>,
+    @InjectRepository(Auth) private authRepository: Repository<Auth>,
+    @InjectRepository(Empleoye) private EmpleoyeRepository: Repository<Empleoye>,
+    @InjectRepository(Manager) private ManagerRepository: Repository<Manager>,
+
     private JwtService: JwtService,
   ){}
-  registerUser(createAuthDto: CreateAuthDto){
-    createAuthDto.userPassword = bcrypt.hashSync(createAuthDto.userPassword,5)
-    return this.authRepository.save(createAuthDto);
-
+  async registerEmployee(id: string, createUserDto: CreateAuthDto) {
+    const roles = createUserDto.userRoles
+    if (roles.includes("Admin") || roles.includes("Manager")) {
+      throw new BadRequestException("Invalid")
+    }
+    createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
+    const user = await this.authRepository.save(createUserDto);
+    const employee = await this.EmpleoyeRepository.preload({
+      employeeId: id,
+    })
+    employee.user = user;
+    return this.EmpleoyeRepository.save(employee)
   }
+
+  async registerManager(id: string, createUserDto: CreateAuthDto) {
+    const roles = createUserDto.userRoles
+    if (roles.includes("Admin") || roles.includes("Employee")) {
+      throw new BadRequestException("Invalid")
+    }
+    createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
+    const user = await this.authRepository.save(createUserDto);
+    const manager = await this.ManagerRepository.preload({
+      managerId: id,
+    })
+    manager.user = user;
+    return this.ManagerRepository.save(manager)
+  }
+
+
+
   async loginUser(loginUserDto: LoginUserDto){
     const user = await this.authRepository.findOne({
       where:{
