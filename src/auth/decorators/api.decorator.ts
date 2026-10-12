@@ -1,21 +1,19 @@
 import { applyDecorators } from "@nestjs/common";
 import { ApiResponse } from "@nestjs/swagger";
 
-const ApiAuth = () => {
+export const ApiAuth = (() => {
   return applyDecorators(
     ApiResponse({
       status: 401,
-      description: "Missing or invalid token",
+      description: "Missing or invalid token"
     }),
     ApiResponse({
       status: 403,
-      description: "Missing role",
+      description: "Missing role"
     }),
     ApiResponse({
       status: 500,
-      description: "Server Error",
-    })
-  );
-};
-
-export { ApiAuth };
+      description: "Server error"
+    }),
+  )
+})

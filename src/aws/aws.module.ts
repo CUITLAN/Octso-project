@@ -5,6 +5,4 @@ import { AwsService } from './aws.service';
   providers: [AwsService],
   exports: [AwsService],
 })
-export class AwsModule {
-
-}
+export class AwsModule {}

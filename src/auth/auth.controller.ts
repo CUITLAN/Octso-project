@@ -1,23 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put,Query, Res, BadRequestException } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
-import { LoginUserDto } from './dto/login-user.dto';
-import { AuthService } from './auth.service';
-import { ApiAuth } from 'src/auth/decorators/api.decorator';
-import { ApiTags } from '@nestjs/swagger';
-import { Response, response } from 'express';
-import { TOKEN_NAME } from './constants/jwt.contants';
-import { Cookies } from './decorators/cookies.decorator';
-@ApiAuth()
-@ApiTags('Auth')
-@Controller('auth')
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Res,
+  BadRequestException,
+  Query,
+} from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { LoginUserDto } from "./dto/login-user.dto";
+import { ApiTags } from "@nestjs/swagger";
+import { TOKEN_NAME } from "./constants/jwt.constants";
+import { Response } from "express";
+import { Cookies } from "./decorators/cookies.decorator";
+
+@ApiTags("Auth")
+@Controller("auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post("register/:id")
   registerManager(
     @Query("role") role: string,
-    @Body() createUserDto: CreateAuthDto,
+    @Body() createUserDto: CreateUserDto,
     @Param("id") id: string,
   ) {
     if (role === "manager") {
@@ -50,7 +60,7 @@ export class AuthController {
   @Patch("/:id")
   updateUser(
     @Param("id") userEmail: string,
-    @Body() updateUserDto: UpdateAuthDto,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.authService.updateUser(userEmail, updateUserDto);
   }
