@@ -52,19 +52,27 @@ export class AuthService {
         userEmail: loginUserDto.userEmail,
       },
     });
-    if (!user) throw new UnauthorizedException("No estas autorizado")
+    if (!user) throw new UnauthorizedException("No Existe el usuario")
+    console.log("Usuario encontrado",user.userPassword)
     const match = await bcrypt.compare(
       loginUserDto.userPassword,
       user.userPassword,
     );
+    console.log("Resultado de bcrypt:", match)
     if (!match) throw new UnauthorizedException("No estas autorizado");
     const payload = {
       userEmail: user.userEmail,
-      userPassword: user.userPassword,
+      userId: user.userId,
       userRoles: user.userRoles
     };
     const token = this.jwtService.sign(payload);
     return token;
+  }
+  //Admin
+  async registerAdmin(createUserDto: CreateUserDto) {
+    createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
+    const user = await this.userRepository.save(createUserDto);
+    return user;
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto){

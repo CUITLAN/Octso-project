@@ -1,9 +1,12 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
+
 @Injectable()
 export class AwsService {
   private s3 = new S3Client({
-    region: "us-east-1",
+    region: "us-east-1", 
+    endpoint: "http://localhost:9000", 
+    forcePathStyle: true, 
     credentials: {
       accessKeyId: process.env.accesskey_bucket,
       secretAccessKey: process.env.secretkey_bucket,
@@ -12,9 +15,9 @@ export class AwsService {
 
   async uploadFile(file: Express.Multer.File){
     const key =  file.originalname
-    const url = `https://nest-ocso-test.s3.amazonaws.com/${key}`
+    const url = `http://localhost:9000/nest-ocso-test/${key}` 
     const bucket = "nest-ocso-test"
-    // https://nest-ocso-test.s3.amazonaws.com/white-01.jpg
+    
     const command = new PutObjectCommand({
       Key: key,
       Body: file.buffer,

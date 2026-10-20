@@ -24,6 +24,11 @@ import { Cookies } from "./decorators/cookies.decorator";
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Post("register/admin")
+  registerAdmin(@Body() createUserDto: CreateUserDto) {
+    return this.authService.registerAdmin(createUserDto);
+  }
+
   @Post("register/:id")
   registerManager(
     @Query("role") role: string,
@@ -37,6 +42,7 @@ export class AuthController {
     }
     throw new BadRequestException("Rol inválido");
   }
+  
 
   @Post("login")
   async login(
@@ -46,16 +52,21 @@ export class AuthController {
   ) {
     const token = await this.authService.loginUser(loginUserDto);
     let expireDate = new Date();
-    expireDate.setDate(expireDate.getDay() + 7);
+    expireDate.setDate(expireDate.getDate() + 7);
+    
     response.cookie(TOKEN_NAME, token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      domain: process.env.cookiesDomain,
+      secure: false,
+      sameSite: "lax",
       expires: expireDate,
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
-    return;
+
+    return { 
+      statusCode: 201,
+      message: "Login exitoso",
+      token: token 
+    };
   }
   @Patch("/:id")
   updateUser(
