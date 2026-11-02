@@ -4,10 +4,11 @@ import { EmployeesController } from './employees.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Employee } from './entities/employee.entity';
 import { AwsModule } from 'src/aws/aws.module';
+import { User } from 'src/auth/entities/user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Employee]), AwsModule
+    TypeOrmModule.forFeature([Employee, User]), AwsModule
   ],
   controllers: [EmployeesController],
   providers: [EmployeesService],

@@ -8,8 +8,8 @@ export class AwsService {
     endpoint: "http://localhost:9000", 
     forcePathStyle: true, 
     credentials: {
-      accessKeyId: process.env.accesskey_bucket,
-      secretAccessKey: process.env.secretkey_bucket,
+      accessKeyId: process.env.accessKeyBucket,      
+      secretAccessKey: process.env.secretKeyBucket,
     }
   })
 
